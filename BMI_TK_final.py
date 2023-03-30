@@ -125,14 +125,26 @@ class Window(tk.Tk):
             self.messageText.configure(state=tk.DISABLED)
         else:
             bmi = weightValue / (heightValue / 100) ** 2
-            
+            def suggestion(bmi):
+                message = ""
+                if bmi < 18.5:
+                    message = "太輕"
+                elif bmi < 25:
+                    message = "正常"
+                elif bmi < 30:
+                    message = "輕度肥胖"
+                elif bmi < 35:
+                    message = "中度肥胖"
+                elif bmi > 35:
+                    message = "重度肥胖"
+                return message
             today = datetime.date.today()
             age_list = birthValue.split('/')
             year = today.year - int(age_list[0])
             message = f"{nameValue}您好:\n"
             message += f"您今年{year}歲\n"
             message += f"BMI值是:{bmi:.2f}\n"
-            message += f"狀態是:xxxx"
+            message += f"您的健康狀態是:{suggestion}"
 
             self.messageText.configure(state=tk.NORMAL)
             self.messageText.delete("1.0",tk.END)
